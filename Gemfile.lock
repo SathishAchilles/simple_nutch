@@ -1,8 +1,3 @@
-PATH
-  remote: .
-  specs:
-    simple_nutch (0.1.0)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -92,7 +87,6 @@ DEPENDENCIES
   rspec (~> 3.10)
   rubocop (~> 1.6, >= 1.6.1)
   rubocop-rspec (~> 2.0, >= 2.0.1)
-  simple_nutch!
   simplecov (~> 0.20.0)
   sqlite3 (~> 1.4, >= 1.4.2)
   zeitwerk (~> 2.4, >= 2.4.2)

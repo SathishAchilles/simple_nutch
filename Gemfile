@@ -1,8 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in simple_nutch.gemspec
-gemspec
-
 gem 'activerecord', '~> 6.1'
 gem 'nokogiri', '~> 1.10', '>= 1.10.10'
 gem 'sqlite3', '~> 1.4', '>= 1.4.2'
