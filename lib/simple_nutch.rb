@@ -1,4 +1,4 @@
-require "simple_nutch/version"
+require 'simple_nutch/version'
 
 module SimpleNutch
   class Error < StandardError; end
