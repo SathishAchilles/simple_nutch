@@ -6,8 +6,9 @@ class SimpleHTMLHREFParser < ApplicationService
   DEFAULT_TAG = 'a'.freeze
   DEFAULT_TAG_ATTR_MAP = { 'a' => 'href' }.freeze
 
-  def initialize(html)
+  def initialize(html, job)
     @html_nodes = Nokogiri::HTML(html)
+    @job = job
     @tag = self.class::DEFAULT_TAG
     @tag_attr_map = self.class::DEFAULT_TAG_ATTR_MAP
   end
