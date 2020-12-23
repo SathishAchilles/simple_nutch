@@ -28,9 +28,18 @@ class SimpleHTMLHREFParser < ApplicationService
 
   def handle_value(value)
     if url?(value)
-      handle_url(value)
+      job_queue = JobQueue.find_by(nutch_request_id: job.nutch_request_id, url: value)
+      if job_queue
+        logger.info("Skipping duplicate URL: #{value}")
+        # check if sitemap exists and increment for reference count
+        job_queue&.increment!(:duplicate_reference)
+        logger.info("Incrementing duplicate reference for URL: #{value}")
+      else
+        JobQueue.create(nutch_request_id: job.nutch_request_id, url: value, depth: job.depth + 1)
+        logger.info("Queuing URL: #{value}")
+      end
     else
-      logger.info("possible static URL identified #{value}")
+      logger.info("Skipping possible static URL #{value}")
       nil
     end
   end
