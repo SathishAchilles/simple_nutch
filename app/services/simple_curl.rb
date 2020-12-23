@@ -1,4 +1,5 @@
 require 'uri'
+require 'open-uri'
 
 # Simply downloads the HTML to a Tempfile
 class SimpleCurl < ApplicationService
@@ -9,8 +10,9 @@ class SimpleCurl < ApplicationService
   # @return [Tempfile]
   def execute
     URI.parse(url).open
-  rescue SocketError => e
+  rescue URI::InvalidURIError, SocketError, OpenURI::HTTPError => e
     logger.warn(e.backtrace)
+    raise
   end
 
   private
