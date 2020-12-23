@@ -9,6 +9,20 @@ class SiteMap < ApplicationRecord
     end
   end
 
+  before_save :shovel_query_params_from_url
+
+  def query_params=(query_params)
+    return unless query_params
+    raise TypeError, 'Expected String' unless query_params.is_a?(String)
+
+    self[:query_params] = if self[:query_params]
+                            self[:query_params] = "#{self[:query_params]},#{query_params}".split(',').uniq
+                          else
+                            query_params
+                          end
+    super
+  end
+
   private
 
   def shovel_query_params_from_url
