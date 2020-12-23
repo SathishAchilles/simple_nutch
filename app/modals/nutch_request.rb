@@ -1,3 +1,4 @@
+# Holds the Request Details for a run
 class NutchRequest < ApplicationRecord
   include StatusTrackable
   has_many :job_queues

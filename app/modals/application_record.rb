@@ -1,3 +1,4 @@
+# Parent Class for all AR Modals
 class ApplicationRecord < ActiveRecord::Base
   self.abstract_class = true
 

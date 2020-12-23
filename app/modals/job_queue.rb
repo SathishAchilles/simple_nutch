@@ -1,3 +1,4 @@
+# Contains all harvested links further processing
 class JobQueue < ApplicationRecord
   include StatusTrackable
   belongs_to :nutch_request
