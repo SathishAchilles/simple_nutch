@@ -1,6 +1,8 @@
 development:
-  adapter: 'sqlite3'
-  dbfile: ':memory:'
+  adapter: 'postgresql'
   pool: 5
   timeout: 5000
+  host: 'localhost'
   database: 'simple_nudge_dev'
+  username: 'postgres'
+  password: 'password'
