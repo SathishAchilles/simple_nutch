@@ -20,10 +20,10 @@ class SimpleHTMLHREFParser < ApplicationService
 
   private
 
-  attr_reader :html_nodes, :tag, :tag_attr_map
+  attr_reader :html_nodes, :job, :tag, :tag_attr_map
 
   def filter_attr_values
-    html_nodes.css(tag).select { |a| a.attributes[tag_attr_map[tag]].value }
+    html_nodes.css(tag).map { |a| a.attributes[tag_attr_map[tag]].try(:value) }.compact
   end
 
   def handle_value(value)
