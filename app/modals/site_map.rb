@@ -1,6 +1,13 @@
 # Sitemap modal to store urls & query params
 class SiteMap < ApplicationRecord
   belongs_to :nutch_request
+  class << self
+    def find_by_request_id_and_raw_url(request_id, url)
+      uri = Addressable::URI.parse(url)
+      uri.query_values = nil
+      find_by(nutch_request_id: request_id, url: uri.to_s)
+    end
+  end
 
   private
 
