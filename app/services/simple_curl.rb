@@ -10,8 +10,8 @@ class SimpleCurl < ApplicationService
   # @return [Tempfile]
   def execute
     URI.parse(url).open
-  rescue URI::InvalidURIError, SocketError, OpenURI::HTTPError => e
-    logger.warn(e.backtrace)
+  rescue URI::InvalidURIError, SocketError, OpenURI::HTTPError => exception
+    logger.warn(exception.backtrace)
     raise
   end
 
