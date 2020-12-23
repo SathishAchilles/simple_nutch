@@ -7,6 +7,6 @@ module StatusTrackable
     block_return_value
   rescue StandardError => exception
     update(status: :failed)
-    log_exception(exception, raise_exception)
+    log_exception(exception, raise_exception: raise_exception)
   end
 end
