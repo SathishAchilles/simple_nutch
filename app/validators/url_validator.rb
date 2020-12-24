@@ -10,5 +10,9 @@ class URLValidator
       logger.warn(exception)
       false
     end
+
+    def nutch_request_domain?(nutch_request_domain, current_url)
+      nutch_request_domain == Addressable::URI.parse(current_url).domain
+    end
   end
 end
