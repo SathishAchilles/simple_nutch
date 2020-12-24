@@ -1,0 +1,20 @@
+---
+exclude_paths:
+  - db/migrate
+detectors:
+  DuplicateMethodCall:
+    max_calls: 2
+  BooleanParameter:
+    exclude:
+      - ApplicationRecord#log_exception
+      - StatusTrackable#track_status
+  ControlParameter:
+    exclude:
+      - ApplicationRecord#log_exception
+  ManualDispatch:
+    exclude:
+      - Jobs::Manager#queue=
+  TooManyStatements:
+    exclude:
+      - StatusTrackable#track_status
+
