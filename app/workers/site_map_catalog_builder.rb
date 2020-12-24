@@ -27,7 +27,7 @@ class SiteMapCatalogBuilder
   end
 
   def harvest_hyperlinks_from_current_url
-    job.track_status(raise_exception: true) do
+    job.track_status do
       links = SimpleHTMLHREFParser.call(SimpleCurl.call(job.url))
       return unless links
 

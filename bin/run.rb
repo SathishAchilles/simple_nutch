@@ -7,5 +7,5 @@ end
 
 if $PROGRAM_NAME == __FILE__
   crawl_url = ARGV[0]
-  RecursiveCrawler.call(crawl_url)
+  NutchService.call(crawl_url)
 end

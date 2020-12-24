@@ -10,7 +10,7 @@ class NutchService < ApplicationService
   end
 
   def execute
-    nutch_request.track_status(raise_exception: true) do
+    nutch_request.track_status do
       job_queue = JobQueue.queued.where(nutch_request: nutch_request)
       job_manager.process(job_queue, worker_class: SiteMapCatalogBuilder)
     end
