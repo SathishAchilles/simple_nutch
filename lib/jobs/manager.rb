@@ -15,7 +15,7 @@ module Jobs
     def queue=(elements)
       return unless elements
 
-      @queue = Queue.new if @queue.closed?
+      @queue = SizedQueue.new(self.class::MAX_Q_SIZE) if @queue.closed?
 
       @queue.push(elements) unless elements.respond_to?(:each)
 
