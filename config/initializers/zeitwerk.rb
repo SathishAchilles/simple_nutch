@@ -8,7 +8,8 @@ LIB_PATH = Bundler.root.join('lib')
 
 loader = Zeitwerk::Loader.new
 loader.inflector.inflect(
-  'simple_html_href_parser' => 'SimpleHTMLHREFParser'
+  'simple_html_href_parser' => 'SimpleHTMLHREFParser',
+  'url_validator' => 'URLValidator'
 )
 loader.push_dir(APP_PATH)
 Dir[File.join(APP_PATH, '*')].sort.each do |dir|
