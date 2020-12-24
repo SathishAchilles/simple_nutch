@@ -6,15 +6,15 @@ module Jobs
     include Log
     WAIT_TIME = 5
     BATCH_SIZE = 5
+    MAX_RETRY_TRAILS = 3
 
-    attr_reader :job_queue, :job_manager, :wait_time, :batch_size
+    attr_reader :job_queue, :job_manager, :batch_size, :retries
 
-    def initialize(job_queue, job_manager, batch_size: self.class::BATCH_SIZE, wait_time: self.class::WAIT_TIME)
+    def initialize(job_queue, job_manager, batch_size: self.class::BATCH_SIZE)
       @job_queue = job_queue
       @job_manager = job_manager
-      @wait_time = wait_time
       @batch_size = batch_size
-      @tries = 0
+      @retries = 0
     end
 
     def call
@@ -36,11 +36,11 @@ module Jobs
     end
 
     def job_queue_empty?
-      return true if !job_queue.reload.exists? && @tries > 2
+      return true if !job_queue.reload.exists? && retries > self.class::MAX_RETRY_TRAILS
 
-      # if job_queue doesn't exist try 3 times for every wait time
-      @tries += 1
-      sleep wait_time
+      # if job_queue doesn't exist, try MAX_RETRY_TRAILS times for every wait time
+      @retries += 1
+      sleep self.class::WAIT_TIME
       false
     end
   end
