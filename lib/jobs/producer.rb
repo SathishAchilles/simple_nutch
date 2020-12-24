@@ -39,8 +39,10 @@ module Jobs
       return true if !job_queue.reload.exists? && retries > self.class::MAX_RETRY_TRAILS
 
       # if job_queue doesn't exist, try MAX_RETRY_TRAILS times for every wait time
-      @retries += 1
-      sleep self.class::WAIT_TIME
+      unless job_queue.exists?
+        @retries += 1
+        sleep self.class::WAIT_TIME
+      end
       false
     end
   end
