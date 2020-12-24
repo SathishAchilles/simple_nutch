@@ -12,7 +12,7 @@ class NutchService < ApplicationService
   def execute
     nutch_request.track_status(raise_exception: true) do
       job_queue = JobQueue.queued.where(nutch_request: nutch_request)
-      job_manager.process(job_queue) { |job| SiteMapCatalogBuilder.perform(job.id) }
+      job_manager.process(job_queue, worker_class: SiteMapCatalogBuilder)
     end
   end
 
