@@ -4,5 +4,6 @@ IFS=$'\n\t'
 set -vx
 
 bundle install
-# Sqlite creates DB file in Application root folder when the connection is established
-rake migrate:up
+# run migrations
+rake db:create
+rake db:migrate
