@@ -26,19 +26,20 @@ module Jobs
 
     # @param job_queue [ActiveRecord::Relation, ActiveRecord::Associations::CollectionProxy, JobQueue]
     #   JobQueue and JobQueue AR collection object with custom scopes that responds to AR .reload method
+    # @param worker_class [Object] Any object that reponds to perform method and accepts job args
     # @param [&block] the block that needs to be executed on the given job queue
     # Process the job_queue with the give block
-    def process(job_queue, &block)
-      create_workers_for(&block)
+    def process(job_queue, worker_class: nil, &block)
+      create_workers_for(worker_class, &block)
       activate_producer_for(job_queue)
       workers.map(&:join)
     end
 
     private
 
-    def create_workers_for(&block)
+    def create_workers_for(worker_class, &block)
       @workers = (1..pool_size).map do
-        Worker.new(self).call(&block)
+        Worker.new(self, worker_class).call(&block)
       end
     end
 
