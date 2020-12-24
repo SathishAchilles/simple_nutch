@@ -2,3 +2,8 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Naming/RescuedExceptionsVariableName:
   Enabled: false
+Lint/MissingSuper:
+  Enabled: false
+Style/Documentation:
+  Exclude:
+    - 'db/migrate/*'
