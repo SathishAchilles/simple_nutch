@@ -30,7 +30,7 @@ module Jobs
     private
 
     def fill_queue
-      job_queue.in_batches(of: batch_size) do |jobs|
+      job_queue.reload.in_batches(of: batch_size) do |jobs|
         job_manager.queue = jobs
       end
     end
