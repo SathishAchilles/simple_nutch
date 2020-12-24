@@ -10,8 +10,7 @@ class JobQueueService < ApplicationService
 
   def execute
     if URLValidator.url?(url)
-      increment_job_queue if job_queue
-      create_job
+      create_or_increment_job_queue
     else
       logger.info("Skipping possible static URL #{url}")
       nil
@@ -22,7 +21,15 @@ class JobQueueService < ApplicationService
 
   attr_reader :url, :nutch_request, :job_queue, :depth
 
-  def create_job
+  def create_or_increment_job_queue
+    if job_queue
+      increment_job_queue
+    else
+      create_job_queue
+    end
+  end
+
+  def create_job_queue
     if eligible_to_harvest?(url)
       JobQueue.create(nutch_request: nutch_request, url: url, depth: depth)
       logger.info("Queuing URL: #{url}")
