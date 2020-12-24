@@ -1,5 +1,6 @@
 # Catalog builder Worker to perform SiteMap functions
 class SiteMapCatalogBuilder
+  include Log
   class << self
     def perform(job_id)
       new.perform(job_id)
