@@ -9,6 +9,9 @@ class SiteMapCatalogBuilder
 
   def perform(job_id)
     @job = JobQueue.find_by(id: job_id)
+    # has never happened here .. but to make sure to skip any concurrent jobs that is already in progress or completed
+    return unless job.queued?
+
     @site_map = SiteMap.find_by_request_id_and_raw_url(job.nutch_request_id, job.url)
     create_or_increment_site_maps
     harvest_hyperlinks_from_current_url
