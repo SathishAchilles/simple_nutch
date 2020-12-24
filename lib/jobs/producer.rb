@@ -20,7 +20,11 @@ module Jobs
     def call
       Thread.new do
         loop do
-          break if job_queue_empty?
+          if job_queue_empty?
+            # producer is aware no more jobs in Q so close the suspending Q
+            job_manager.queue.close
+            break
+          end
 
           fill_queue
         end
