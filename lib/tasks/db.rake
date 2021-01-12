@@ -12,6 +12,7 @@ ActiveRecord::Tasks::DatabaseTasks.db_dir = root.join('db').to_s
 ActiveRecord::Tasks::DatabaseTasks.migrations_paths = [root.join('db/migrate').to_s]
 
 ActiveRecord::Tasks::DatabaseTasks.root = root
+ActiveRecord::Base.establish_connection(db_config[env])
 
 namespace :db do
   task :create do
